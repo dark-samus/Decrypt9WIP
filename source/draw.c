@@ -41,13 +41,13 @@ void ClearScreenFull(bool clear_top, bool clear_bottom)
 
 void DrawCharacter(u8* screen, int character, int x, int y, int color, int bgcolor)
 {
-    for (int yy = 0; yy < 8; yy++) {
+    for (int yy = 0; yy < 10; yy++) {
         int xDisplacement = (x * BYTES_PER_PIXEL * SCREEN_HEIGHT);
         int yDisplacement = ((SCREEN_HEIGHT - (y + yy) - 1) * BYTES_PER_PIXEL);
         u8* screenPos = screen + xDisplacement + yDisplacement;
 
-        u8 charPos = font[character * 8 + yy];
-        for (int xx = 7; xx >= 0; xx--) {
+        u8 charPos = font[character * 10 + yy];
+        for (int xx = 6; xx >= 0; xx--) {
             if ((charPos >> xx) & 1) {
                 *(screenPos + 0) = color >> 16;  // B
                 *(screenPos + 1) = color >> 8;   // G
@@ -65,7 +65,7 @@ void DrawCharacter(u8* screen, int character, int x, int y, int color, int bgcol
 void DrawString(u8* screen, const char *str, int x, int y, int color, int bgcolor)
 {
     for (size_t i = 0; i < strlen(str); i++)
-        DrawCharacter(screen, str[i], x + i * 8, y, color, bgcolor);
+        DrawCharacter(screen, str[i], x + i * 6, y, color, bgcolor);
 }
 
 void DrawStringF(int x, int y, bool use_top, const char *format, ...)
